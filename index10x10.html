@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MineSweeper10x10</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: rgb(182, 173, 231);
+      }
+      .game-canvas {
+        display: grid;
+        margin: 5rem 0 0 0;
+        grid-template-rows: repeat(10, 50px);
+        grid-template-columns: repeat(10, 50px);
+      }
+      .box {
+        background-color: rgba(33, 117, 30, 0.795);
+        border: 1px solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .buttons {
+        background-color: rgb(212, 243, 233);
+        border: 2px solid;
+        margin: 5rem;
+        width: 20%;
+        display: flex;
+        justify-content: space-evenly;
+        border-radius: 25px;
+      }
+      button {
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        border: 1px solid rgba(0, 0, 0, 0.452);
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .selected {
+        border: 3px solid green;
+      }
+      .score {
+        margin: 1.6rem 0 0 0;
+        background-color: rgb(142, 142, 248);
+        height: 100px;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 25px;
+        font-size: 50px;
+      }
+      .circle {
+        background-color: white;
+        width: 35px;
+        height: 35px;
+        border: 2px solid brown;
+        border-radius: 50%;
+      }
+      .box img {
+        width: 40px;
+        display: none;
+      }
+      .show > img {
+        display: block;
+      }
+      img{
+        width: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="score">
+      <div class="bombs">20 <img src="bomb.webp" width="50px" alt="" /></div>
+    </div>
+    <div class="game-canvas">
+      <div class="box" id="00" onclick="clicked(this)"></div>
+      <div class="box" id="01" onclick="clicked(this)"></div>
+      <div class="box" id="02" onclick="clicked(this)"></div>
+      <div class="box" id="03" onclick="clicked(this)"></div>
+      <div class="box" id="04" onclick="clicked(this)"></div>
+      <div class="box" id="05" onclick="clicked(this)"></div>
+      <div class="box" id="06" onclick="clicked(this)"></div>
+      <div class="box" id="07" onclick="clicked(this)"></div>
+      <div class="box" id="08" onclick="clicked(this)"></div>
+      <div class="box" id="09" onclick="clicked(this)"></div>
+      <div class="box" id="10" onclick="clicked(this)"></div>
+      <div class="box" id="11" onclick="clicked(this)"></div>
+      <div class="box" id="12" onclick="clicked(this)"></div>
+      <div class="box" id="13" onclick="clicked(this)"></div>
+      <div class="box" id="14" onclick="clicked(this)"></div>
+      <div class="box" id="15" onclick="clicked(this)"></div>
+      <div class="box" id="16" onclick="clicked(this)"></div>
+      <div class="box" id="17" onclick="clicked(this)"></div>
+      <div class="box" id="18" onclick="clicked(this)"></div>
+      <div class="box" id="19" onclick="clicked(this)"></div>
+      <div class="box" id="20" onclick="clicked(this)"></div>
+      <div class="box" id="21" onclick="clicked(this)"></div>
+      <div class="box" id="22" onclick="clicked(this)"></div>
+      <div class="box" id="23" onclick="clicked(this)"></div>
+      <div class="box" id="24" onclick="clicked(this)"></div>
+      <div class="box" id="25" onclick="clicked(this)"></div>
+      <div class="box" id="26" onclick="clicked(this)"></div>
+      <div class="box" id="27" onclick="clicked(this)"></div>
+      <div class="box" id="28" onclick="clicked(this)"></div>
+      <div class="box" id="29" onclick="clicked(this)"></div>
+      <div class="box" id="30" onclick="clicked(this)"></div>
+      <div class="box" id="31" onclick="clicked(this)"></div>
+      <div class="box" id="32" onclick="clicked(this)"></div>
+      <div class="box" id="33" onclick="clicked(this)"></div>
+      <div class="box" id="34" onclick="clicked(this)"></div>
+      <div class="box" id="35" onclick="clicked(this)"></div>
+      <div class="box" id="36" onclick="clicked(this)"></div>
+      <div class="box" id="37" onclick="clicked(this)"></div>
+      <div class="box" id="38" onclick="clicked(this)"></div>
+      <div class="box" id="39" onclick="clicked(this)"></div>
+      <div class="box" id="40" onclick="clicked(this)"></div>
+      <div class="box" id="41" onclick="clicked(this)"></div>
+      <div class="box" id="42" onclick="clicked(this)"></div>
+      <div class="box" id="43" onclick="clicked(this)"></div>
+      <div class="box" id="44" onclick="clicked(this)"></div>
+      <div class="box" id="45" onclick="clicked(this)"></div>
+      <div class="box" id="46" onclick="clicked(this)"></div>
+      <div class="box" id="47" onclick="clicked(this)"></div>
+      <div class="box" id="48" onclick="clicked(this)"></div>
+      <div class="box" id="49" onclick="clicked(this)"></div>
+      <div class="box" id="50" onclick="clicked(this)"></div>
+      <div class="box" id="51" onclick="clicked(this)"></div>
+      <div class="box" id="52" onclick="clicked(this)"></div>
+      <div class="box" id="53" onclick="clicked(this)"></div>
+      <div class="box" id="54" onclick="clicked(this)"></div>
+      <div class="box" id="55" onclick="clicked(this)"></div>
+      <div class="box" id="56" onclick="clicked(this)"></div>
+      <div class="box" id="57" onclick="clicked(this)"></div>
+      <div class="box" id="58" onclick="clicked(this)"></div>
+      <div class="box" id="59" onclick="clicked(this)"></div>
+      <div class="box" id="60" onclick="clicked(this)"></div>
+      <div class="box" id="61" onclick="clicked(this)"></div>
+      <div class="box" id="62" onclick="clicked(this)"></div>
+      <div class="box" id="63" onclick="clicked(this)"></div>
+      <div class="box" id="64" onclick="clicked(this)"></div>
+      <div class="box" id="65" onclick="clicked(this)"></div>
+      <div class="box" id="66" onclick="clicked(this)"></div>
+      <div class="box" id="67" onclick="clicked(this)"></div>
+      <div class="box" id="68" onclick="clicked(this)"></div>
+      <div class="box" id="69" onclick="clicked(this)"></div>
+      <div class="box" id="70" onclick="clicked(this)"></div>
+      <div class="box" id="71" onclick="clicked(this)"></div>
+      <div class="box" id="72" onclick="clicked(this)"></div>
+      <div class="box" id="73" onclick="clicked(this)"></div>
+      <div class="box" id="74" onclick="clicked(this)"></div>
+      <div class="box" id="75" onclick="clicked(this)"></div>
+      <div class="box" id="76" onclick="clicked(this)"></div>
+      <div class="box" id="77" onclick="clicked(this)"></div>
+      <div class="box" id="78" onclick="clicked(this)"></div>
+      <div class="box" id="79" onclick="clicked(this)"></div>
+      <div class="box" id="80" onclick="clicked(this)"></div>
+      <div class="box" id="81" onclick="clicked(this)"></div>
+      <div class="box" id="82" onclick="clicked(this)"></div>
+      <div class="box" id="83" onclick="clicked(this)"></div>
+      <div class="box" id="84" onclick="clicked(this)"></div>
+      <div class="box" id="85" onclick="clicked(this)"></div>
+      <div class="box" id="86" onclick="clicked(this)"></div>
+      <div class="box" id="87" onclick="clicked(this)"></div>
+      <div class="box" id="88" onclick="clicked(this)"></div>
+      <div class="box" id="89" onclick="clicked(this)"></div>
+      <div class="box" id="90" onclick="clicked(this)"></div>
+      <div class="box" id="91" onclick="clicked(this)"></div>
+      <div class="box" id="92" onclick="clicked(this)"></div>
+      <div class="box" id="93" onclick="clicked(this)"></div>
+      <div class="box" id="94" onclick="clicked(this)"></div>
+      <div class="box" id="95" onclick="clicked(this)"></div>
+      <div class="box" id="96" onclick="clicked(this)"></div>
+      <div class="box" id="97" onclick="clicked(this)"></div>
+      <div class="box" id="98" onclick="clicked(this)"></div>
+      <div class="box" id="99" onclick="clicked(this)"></div>
+    </div>
+    <div class="buttons">
+      <button class="open" onclick="clearPath()"><div class="circle"></div></button>
+      <button class="flag" onclick="flag()">
+        <img src="flag.svg" alt="flag" />
+      </button>
+    </div>
+  </body>
+  <script src="app2.js"></script>
+</html>
