@@ -9,16 +9,23 @@ for (i = 0; i < 100; i++) {
 console.log(coordinates);
 function clicked(el) {
   let id = el.id;
+  console.log(id);
 
   if (document.querySelector(".flag").classList.contains("flagON")) {
-    console.log("ADD flag");
-    document.getElementById(id).style.backgroundColor = "white";
-    document.getElementById(id).classList.add("show");
-    document.getElementById(id).innerHTML = `<img src="flag.svg" alt=""></img>`;
-    let index = coordinates.indexOf(id);
-    if (bomb[index] == 1) {
-      bomb[index]=2;
-      document.querySelector(".score").innerHTML = `${--score} ${" "}  <img src="bomb.webp">`;
+    if (checkFlags()) {
+      console.log("ADD flag");
+      document.getElementById(id).style.backgroundColor = "white";
+      document.getElementById(id).classList.add("show");
+      document.getElementById(
+        id
+      ).innerHTML = `<img src="flag.svg" alt=""></img>`;
+      let index = coordinates.indexOf(id);
+      if (bomb[index] == 1) {
+        document.querySelector(
+          ".score"
+        ).innerHTML = `${--score} ${" "}  <img src="bomb.webp">`;
+      }
+      bomb[index] = 2;
     }
   } else {
     document.getElementById(id).style.backgroundColor = "brown";
@@ -27,11 +34,25 @@ function clicked(el) {
       revealAll();
       document.querySelector(".score").innerHTML = "Game over";
     } else {
-      bomb[index] = 0;
-      console.log(bomb);
-      land(id);
+      if (countOfBombs(id) != 0) {
+        bomb[index] = 0;
+      } else {
+        land(id);
+      }
     }
   }
+}
+function checkFlags() {
+  let countOfFlags = 20;
+  for (i = 0; i < 100; i++) {
+    if (bomb[i] == -2) {
+      countOfFlags--;
+    }
+    if (countOfFlags <= 0) {
+      return false;
+    }
+  }
+  return true;
 }
 function revealAll() {
   for (i = 0; i < 100; i++) {
@@ -44,7 +65,6 @@ function Randombombs() {
   let c = 0;
   while (c < 20) {
     let rand = Math.floor(Math.random() * 100);
-    console.log(rand);
     if (!boxes[rand].classList.contains("bomb")) {
       c++;
       bomb[rand] = 1;
@@ -66,7 +86,7 @@ function clearPath() {
   document.querySelector(".flag").classList.remove("flagON");
   document.querySelector(".open").classList.add("selected");
   document.querySelector(".flag").classList.remove("selected");
-} 
+}
 
 function land(center) {
   let index = coordinates.indexOf(center);
@@ -74,8 +94,8 @@ function land(center) {
   let y = Number(coordinates[index].substring(1));
   let arrX = [x + 1, x - 1, x, x, x - 1, x + 1, x + 1, x - 1];
   let arrY = [y, y, y - 1, y + 1, y + 1, y + 1, y - 1, y - 1];
-  console.log(arrX);
-  console.log(arrY);
+  // console.log(arrX);
+  // console.log(arrY);
   let id;
   let el;
   let count = 0;
@@ -83,18 +103,17 @@ function land(center) {
     id = `${arrX[i]}${arrY[i]}`;
     console.log(id);
     if (isValid(id)) {
-      if (bomb[coordinates.indexOf(id)] == 0) {
-      } else {
+      if (bomb[coordinates.indexOf(id)] != 0) {
         el = document.getElementById(id);
         if (!el.classList.contains("bomb")) {
           el.style.backgroundColor = "brown";
           bomb[coordinates.indexOf(id)] = 0;
-          land(id);
           if (score == 0) {
             document.querySelector(".score").innerHTML = "You Won!";
-
             return;
           }
+          // land(id);
+          clicked(document.getElementById(id));
         } else {
           count++;
         }
@@ -105,6 +124,25 @@ function land(center) {
     document.getElementById(center).textContent = count;
   }
   bomb[index] = count;
+}
+function countOfBombs(center) {
+  let index = coordinates.indexOf(center);
+  let x = Number(coordinates[index].substring(0, 1));
+  let y = Number(coordinates[index].substring(1));
+  let arrX = [x + 1, x - 1, x, x, x - 1, x + 1, x + 1, x - 1];
+  let arrY = [y, y, y - 1, y + 1, y + 1, y + 1, y - 1, y - 1];
+  console.log(center);
+
+  let id;
+  let count = 0;
+  for (i = 0; i < 8; i++) {
+    id = `${arrX[i]}${arrY[i]}`;
+    if (bomb[coordinates.indexOf(id)] == 1) {
+      count++;
+      console.log(count);
+    }
+  }
+  return count;
 }
 function isValid(x) {
   if (x.length > 2) {
